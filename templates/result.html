@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<hr>
+{%  for question in qs %}
+<h3>{{question.course_code}} | {{question.session}}</h3>
+<h4>{{question.semester}} | {{question.level}}</h4>
+​<picture>
+  <source srcset="..." type="file/pdf">
+  <img src="{{question.url}}" alt="file">
+  </picture>
+<h3>{{question.school}} | {{question.department}}</h3>
+
+{% endfor %}
+<hr />
+
+
+{% endblock%}

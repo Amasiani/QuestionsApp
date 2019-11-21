@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h3>Search for pass examination paper</h3>
+<form method="GET" action=".">
+  <div class="form-row">
+    <div class="form-group col-md-2 col-lg-2">
+      <label for="inputSchool">School</label>
+      <select id="school" name='school_query' placeholder="select" class="form-control">
+        <option selected>Choose...</option>
+        {% for sch in schools %}
+        <option value="{{ sch }}" >{{ sch }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group col-md-2 col-lg-2">
+      <label for="textInput">Department</label>
+      <input type="text" class="form-control" id="department" value="{{ request.GET.department_query }}" placeholder="Department" name="department_query" />
+    </div>
+    <div class="form-group col-md-2 col-lg-2">
+
+      <label for="textInput">Course Code</label>
+      <input type="text" class="form-control" id="course_code" value="{{ request.GET.course_code_query }}" placeholder="Course code" name="course_code_query" />
+    </div>
+    <div class="form-group col-md-2 col-lg-2">
+      <label for="textInput">Minimum Date</label>
+      <input type="date" class="form-control" id="session" value="{{ request.GET.date_min }}" placeholder="session" name="date_min" />
+    </div>
+    <div class="form-group col-md-2 col-lg-2">
+      <label for="textInput">Maximum Date</label>
+      <input type="date" class="form-control" id="session" value="{{ request.GET.date_max }}" placeholder="session" name="date_max" />
+    </div>
+    <div class="form-group col-md-2 col-lg-2">
+      <label for="textInput">Semester</label>
+      <input type="number" min=1 max=2 class="form-control" id="semester" value="{{ request.GET.semester_query }}" placeholder="select" name="semester_query" />
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+      <hr>
+    <ul>
+      {% if queryset %}
+        {%  for query in queryset %}
+      <div class="d-flex flex-column pd-3">
+        <span>
+            <p style="color:blue"><strong>School code: {{ query.school }} | Department: {{ query.department }} | Course code: {{query.course_code }} | Exam date: {{ query.session }} | Semester: {{ query.semester }}</strong></p>
+            <img class="img-fluid max-auto d-" src="{{ query.image.url }}" alt="image missing" width="50%" height="50%">
+        </span>      
+      </div>
+      <hr>
+    </ul> 
+      {% endfor %}
+    {% else %}
+        <p style="color:red;"><strong> Search request matches no result </strong></p>
+    {% endif %}
+  
+
+{% endblock %}
